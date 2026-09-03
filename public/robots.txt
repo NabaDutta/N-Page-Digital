@@ -1,0 +1,46 @@
+# N Page Digital — robots.txt
+# Strategy: allow retrieval/citation crawlers (they drive AI-answer visibility),
+# block AI training crawlers (they don't help visibility, only feed model training).
+# See project notes for the full reasoning — blocking citation bots would
+# directly undermine the AEO/GEO goals this site is built around.
+
+User-agent: *
+Allow: /
+
+# --- Citation / retrieval crawlers — explicitly allowed ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- AI training crawlers — blocked (does not affect AI-answer visibility) ---
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Sitemap
+Sitemap: https://npagedigital.com/sitemap.xml

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free UTM Builder | N Page Digital</title>
+<meta name="description" content="Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Public+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#212121;
+    --ink-2:#2B2B2B;
+    --paper:#F4F7FB;
+    --paper-2:#EAF0F7;
+    --white:#FFFFFF;
+    --signal:#228727;
+    --signal-dark:#1B6E20;
+    --signal-tint:#E5F3E6;
+    --signal-on-dark:#6FCF75;
+    --ember:#5C8A5F;
+    --ember-tint:#E9F1E8;
+    --pop:#FFC107;
+    --pop-dark:#FFA000;
+    --grad-hero:linear-gradient(135deg, #0B3A20 0%, #1D7A34 100%);
+    --grad-dark:linear-gradient(135deg, #0A2E1B 0%, #123D22 45%, #1D5C2E 100%);
+    --slate:#667085;
+    --line:rgba(22,40,61,0.12);
+    --line-on-dark:rgba(255,255,255,0.12);
+    --shadow-sm:0 2px 10px -4px rgba(16,27,41,0.14);
+    --shadow-md:0 16px 32px -12px rgba(16,27,41,0.20);
+    --shadow-lg:0 32px 64px -20px rgba(16,27,41,0.30);
+    --shadow-dark:0 24px 48px -16px rgba(0,0,0,0.5);
+    --font-display:'Poppins', sans-serif;
+    --font-body:'Public Sans', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ font-family:var(--font-body); background:var(--paper); color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+  .reticle{ width:16px; height:16px; flex-shrink:0; }
+  .eyebrow-row{ display:flex; align-items:center; gap:9px; margin-bottom:16px; }
+  .eyebrow{ font-family:var(--font-mono); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:500; }
+  .eyebrow.light{ color:rgba(255,255,255,0.55); }
+  .eyebrow.dark{ color:var(--slate); }
+
+  .tag{ display:inline-flex; align-items:center; font-family:var(--font-mono); font-size:11.5px; padding:6px 13px; border-radius:20px; font-family:var(--font-display); font-weight:500; }
+  .tag--teal{ background:var(--signal-tint); color:var(--signal-dark); }
+  .tag--teal-dark{ background:rgba(20,160,133,0.18); color:var(--signal-on-dark); }
+  .tag--ember{ background:var(--ember-tint); color:#3D5C3F; }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; font-family:var(--font-display); font-weight:700; font-size:15px; padding:15px 28px; border-radius:14px; border:1px solid transparent; cursor:pointer; transition:transform 0.15s ease, background 0.15s ease, border-color 0.15s ease; }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn--primary{ background:var(--signal); color:#fff; box-shadow:0 8px 20px -6px rgba(20,160,133,0.5); }
+  .btn--primary:hover{ background:var(--signal-dark); box-shadow:0 10px 24px -6px rgba(20,160,133,0.55); }
+  @keyframes popPulse{ 0%,100%{ box-shadow:0 8px 24px -6px rgba(255,193,7,0.55); } 50%{ box-shadow:0 8px 30px -4px rgba(255,193,7,0.85); } }
+  .btn--pop{ background:var(--pop); color:#1A1A1A; box-shadow:0 8px 24px -6px rgba(255,193,7,0.6); animation:popPulse 2.8s ease-in-out infinite; animation-delay:1.2s; }
+  .btn--pop:hover{ background:var(--pop-dark); box-shadow:0 10px 28px -6px rgba(255,193,7,0.65); }
+  .btn--ghost-dark{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .btn--ghost-dark:hover{ background:rgba(22,40,61,0.05); }
+  .btn--ghost-light{ background:transparent; color:#fff; border-color:rgba(255,255,255,0.28); }
+  .btn--ghost-light:hover{ background:rgba(255,255,255,0.08); }
+  .link-arrow{ font-weight:600; font-size:14px; color:var(--signal-dark); white-space:nowrap; }
+  .link-arrow.on-dark{ color:var(--signal-on-dark); }
+  .link-arrow:hover{ text-decoration:underline; }
+
+  /* NAV */
+  nav{ background:var(--grad-dark); position:sticky; top:0; z-index:30; }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
+  .logo{ font-family:var(--font-display); font-weight:800; font-size:20px; color:#fff; }
+  .logo span{ color:var(--signal-on-dark); }
+  .logo-chip{ display:inline-flex; align-items:center; background:#fff; padding:8px 12px; border-radius:8px; line-height:0; }
+  .logo-chip img{ display:block; }
+  .foot-logo-chip{ margin-bottom:14px; }
+  .nav-links{ display:flex; align-items:center; gap:32px; font-size:14.5px; font-weight:500; color:rgba(255,255,255,0.68); }
+  .nav-links a:hover{ color:#fff; }
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .menu-toggle{ display:none; background:transparent; border:none; color:#fff; cursor:pointer; padding:8px; align-items:center; justify-content:center; }
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .menu-toggle{ display:flex; }
+    .nav-right .btn--primary{ display:none; }
+  }
+  .mobile-menu{ display:none; flex-direction:column; background:#123D22; border-top:1px solid rgba(255,255,255,0.1); }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{ padding:17px 32px; font-size:15.5px; font-weight:500; color:rgba(255,255,255,0.8); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .mobile-menu a:hover{ color:#fff; }
+  .mobile-menu .mob-cta{ margin:16px 32px 20px; }
+
+  /* NAV DROPDOWNS (desktop) */
+  .nav-item{ position:relative; height:74px; display:flex; align-items:center; }
+  .nav-trigger{ background:none; border:none; font:inherit; font-size:14.5px; font-weight:500; color:rgba(255,255,255,0.68); cursor:pointer; display:flex; align-items:center; gap:5px; padding:8px 0; }
+  .nav-item:hover .nav-trigger{ color:#fff; }
+  .chev{ transition:transform 0.15s ease; flex-shrink:0; }
+  .nav-item:hover .chev{ transform:rotate(180deg); }
+  .dropdown{ position:absolute; top:100%; left:50%; transform:translateX(-50%); background:#123D22; border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:10px; min-width:245px; opacity:0; visibility:hidden; transition:opacity 0.15s ease; box-shadow:0 24px 48px -20px rgba(0,0,0,0.55); }
+  .nav-item:hover .dropdown{ opacity:1; visibility:visible; }
+  .dropdown a{ display:block; padding:10px 14px; border-radius:6px; font-size:13.5px; color:rgba(255,255,255,0.75); white-space:nowrap; }
+  .dropdown a:hover{ background:rgba(255,255,255,0.07); color:#fff; }
+
+  /* NAV scroll shadow */
+  nav.scrolled{ box-shadow:0 1px 0 rgba(255,255,255,0.08), 0 12px 24px -16px rgba(0,0,0,0.45); }
+
+  /* MOBILE ACCORDION */
+  .mob-accordion{ border-bottom:1px solid rgba(255,255,255,0.06); }
+  .mob-acc-toggle{ width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:none; text-align:left; font:inherit; color:rgba(255,255,255,0.8); padding:17px 32px; font-size:15.5px; font-weight:500; cursor:pointer; }
+  .mob-acc-panel{ display:none; flex-direction:column; background:rgba(255,255,255,0.03); }
+  .mob-acc-panel.open{ display:flex; }
+  .mob-acc-panel a{ padding:13px 44px !important; font-size:14.5px; color:rgba(255,255,255,0.6); border-bottom:none !important; }
+  .mob-acc-panel a:hover{ color:#fff; }
+
+  /* CLIENT LOGOS */
+  .client-logos{ background:var(--paper); padding:48px 0 52px; border-bottom:1px solid var(--line); }
+  .logos-label{ text-align:center; font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-bottom:28px; }
+  .logo-marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
+  .logo-track{ display:inline-flex; align-items:center; gap:22px; animation:logo-scroll 24s linear infinite; }
+  .logo-card{ background:#fff; border:1px solid var(--line); border-radius:18px; height:80px; padding:14px 30px; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); flex-shrink:0; }
+  .logo-card img{ max-height:100%; max-width:170px; width:auto; height:auto; object-fit:contain; }
+  .logo-card.dark{ background:#123D22; border-color:rgba(255,255,255,0.1); }
+  @keyframes logo-scroll{ 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .logo-track{ animation:none; } }
+
+  /* HERO */
+  .hero{ background:var(--grad-hero); color:#fff; padding:96px 0 0; overflow:hidden; position:relative; }
+  .hero > *{ position:relative; z-index:1; }
+  .wave-divider{ position:relative; z-index:1; line-height:0; margin-top:-2px; }
+  .wave-divider svg{ display:block; width:100%; height:56px; }
+
+  /* VIBRANT BLOB DECORATION */
+  .aurora{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .aurora-blob{ position:absolute; border-radius:50%; opacity:0.9; }
+  .aurora-blob.b1{ width:420px; height:420px; background:rgba(255,255,255,0.14); top:-160px; left:-90px; animation:aurora-drift-1 16s ease-in-out infinite; }
+  .aurora-blob.b2{ width:320px; height:320px; background:rgba(255,193,7,0.28); bottom:-120px; right:-60px; animation:aurora-drift-2 20s ease-in-out infinite; }
+  .aurora-blob.b3{ width:260px; height:260px; background:rgba(255,255,255,0.1); bottom:10%; left:6%; animation:aurora-drift-3 18s ease-in-out infinite; }
+  @keyframes aurora-drift-1{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(50px,30px) scale(1.1); } }
+  @keyframes aurora-drift-2{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-40px,20px) scale(1.12); } }
+  @keyframes aurora-drift-3{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(20px,-25px) scale(1.15); } }
+  .spotlight{ position:absolute; inset:0; pointer-events:none; z-index:0; background:radial-gradient(500px circle at var(--mx,50%) var(--my,30%), rgba(255,255,255,0.1), transparent 55%); }
+  @media (prefers-reduced-motion: reduce){ .aurora-blob{ animation:none !important; } }
+  @media (prefers-reduced-motion: reduce){
+    .query-pill, .headline-wrap, .cite-line, .hero-ctas, .trust-row{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .btn--pop{ animation:none !important; }
+  }
+
+  /* GRADIENT TEXT */
+  .grad-text{ background:linear-gradient(90deg, #fff, var(--pop), #fff); background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:grad-shift 6s ease infinite; font-weight:800; }
+  @keyframes grad-shift{ 0%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } 100%{ background-position:0% 50%; } }
+  @media (prefers-reduced-motion: reduce){ .grad-text{ animation:none; } }
+
+  /* HOW IT WORKS — infographic flow */
+  .how-diagram{ display:flex; align-items:stretch; justify-content:center; gap:8px; flex-wrap:wrap; }
+  .how-step{ background:#fff; border:1px solid var(--line); border-radius:20px; padding:26px 20px; width:230px; box-shadow:var(--shadow-sm); text-align:center; transition:box-shadow 0.2s ease, transform 0.2s ease; }
+  .how-step:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+  .how-step--result{ background:#123D22; border-color:#123D22; }
+  .how-step--result h3, .how-step--result p{ color:#fff; }
+  .how-step--result p{ color:rgba(255,255,255,0.65); }
+  .how-ico{ width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+  .how-ico--query{ background:var(--signal-tint); color:var(--signal-dark); }
+  .how-ico--scan{ background:var(--ember-tint); color:#3D5C3F; }
+  .how-ico--answer{ background:var(--signal-tint); color:var(--signal-dark); }
+  .how-ico--win{ background:rgba(255,255,255,0.12); color:var(--signal-on-dark); }
+  .how-step h3{ font-family:var(--font-display); font-weight:700; font-size:15.5px; margin-bottom:8px; }
+  .how-step p{ font-size:13px; color:var(--slate); line-height:1.5; }
+  .how-arrow{ display:flex; align-items:center; color:var(--line); flex-shrink:0; align-self:center; }
+  @media (max-width:980px){ .how-arrow{ transform:rotate(90deg); margin:4px 0; } .how-diagram{ flex-direction:column; align-items:center; } }
+
+  /* 3D TILT */
+  .tilt{ transition:transform 0.15s ease, box-shadow 0.15s ease; transform-style:preserve-3d; will-change:transform; }
+  .hero-inner{ text-align:center; max-width:900px; margin:0 auto; }
+  @keyframes heroFadeUp{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+  .query-pill{ position:relative; display:inline-flex; align-items:center; gap:9px; font-family:var(--font-mono); font-size:13px; color:rgba(255,255,255,0.75); background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); padding:9px 18px 9px 26px; border-radius:20px; margin-bottom:36px; animation:heroFadeUp 0.7s ease both; animation-delay:0.05s; }
+  .query-pill::before{ content:''; position:absolute; left:12px; top:50%; transform:translateY(-50%); width:8px; height:8px; border-radius:50%; background:#4ADE80; animation:pillPulse 1.6s ease-in-out infinite; }
+  @keyframes pillPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(74,222,128,0.6); } 50%{ box-shadow:0 0 0 6px rgba(74,222,128,0); } }
+  @media (prefers-reduced-motion: reduce){ .query-pill::before{ animation:none; } }
+  #query-text{ transition:opacity 0.5s ease; }
+  .headline-wrap{ min-height:220px; display:flex; align-items:center; justify-content:center; margin-bottom:28px; animation:heroFadeUp 0.7s ease both; animation-delay:0.18s; }
+  h1.rotating{ font-family:var(--font-display); font-weight:800; font-size:clamp(2.1rem, 5.4vw, 4.4rem); line-height:1.12; letter-spacing:-0.01em; transition:opacity 0.5s ease; }
+  h1.rotating em{ font-style:normal; color:var(--pop); font-weight:800; }
+  .cite-line{ display:flex; align-items:center; justify-content:center; gap:8px; font-size:13.5px; color:rgba(255,255,255,0.5); margin-bottom:40px; animation:heroFadeUp 0.7s ease both; animation-delay:0.32s; }
+  .cite-line .check{ color:var(--signal-on-dark); flex-shrink:0; }
+  .hero-ctas{ display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:64px; animation:heroFadeUp 0.7s ease both; animation-delay:0.44s; }
+  .trust-row{ border-top:1px solid rgba(255,255,255,0.1); padding:26px 0; display:flex; justify-content:center; gap:44px; flex-wrap:wrap; animation:heroFadeUp 0.7s ease both; animation-delay:0.56s; }
+  .trust-item{ display:flex; align-items:center; gap:9px; font-size:13.5px; color:rgba(255,255,255,0.6); font-weight:500; }
+  .trust-item .ico{ color:var(--signal-on-dark); flex-shrink:0; }
+
+  /* SECTION SHELLS */
+  .sect{ padding:104px 0; }
+  .sect.on-light{ background:var(--paper); }
+  .sect.on-panel{ background:var(--paper-2); }
+  .sect.on-dark{ background:var(--grad-dark); color:#fff; }
+  .sect-head{ max-width:600px; margin-bottom:56px; }
+  .sect-head h2{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing:-0.01em; margin-bottom:14px; }
+  .sect-head p{ color:var(--slate); font-size:16px; }
+  .sect.on-dark .sect-head p{ color:rgba(255,255,255,0.6); }
+
+  /* SERVICES — elevated card list */
+  .service-row{ display:grid; grid-template-columns:240px 1fr 130px; align-items:center; gap:24px; padding:28px 26px; background:#FFFFFF; border:1px solid var(--line); border-radius:20px; margin-bottom:14px; box-shadow:var(--shadow-sm); transition:box-shadow 0.2s ease, transform 0.2s ease; }
+  .service-row:last-child{ margin-bottom:0; }
+  .service-row:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+  .service-title{ display:flex; align-items:center; gap:14px; }
+  .service-title .ico-badge{ width:38px; height:38px; border-radius:10px; background:var(--signal-tint); color:var(--signal-dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .service-title span{ font-family:var(--font-display); font-weight:700; font-size:19px; }
+  .service-row p{ font-size:14.5px; color:var(--slate); }
+  @media (max-width:760px){
+    .service-row{ grid-template-columns:1fr; gap:10px; padding:22px 20px; }
+    .service-row .link-arrow{ justify-self:start; }
+  }
+
+  /* INDUSTRIES — elevated panels */
+  .panels{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .panel{ padding:36px 26px; border-radius:22px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.1); box-shadow:var(--shadow-dark); transition:background 0.2s ease, transform 0.2s ease; display:flex; flex-direction:column; justify-content:space-between; min-height:220px; }
+  .panel:hover{ background:rgba(255,255,255,0.065); transform:translateY(-4px); }
+  .panel h3{ font-family:var(--font-display); font-weight:700; font-size:21px; margin:16px 0 20px; }
+  .panel-ico{ width:44px; height:44px; border-radius:10px; background:rgba(255,255,255,0.08); color:var(--signal-on-dark); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+  .panel.more{ background:rgba(92,138,95,0.12); border-color:rgba(92,138,95,0.3); }
+  .panel.more p{ color:rgba(255,255,255,0.55); font-size:13.5px; margin-bottom:16px; }
+  @media (max-width:860px){ .panels{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .panels{ grid-template-columns:1fr; } }
+
+  /* LEARNING HUB — distinct card grid (colored top bar), not the same row-list as Services */
+  .hub-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:32px; }
+  @media (max-width:860px){ .hub-grid{ grid-template-columns:1fr; } }
+  .hub-card{ background:#FFFFFF; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-sm); transition:box-shadow 0.2s ease, transform 0.2s ease; }
+  .hub-card:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+  .hub-card-bar{ height:6px; }
+  .hub-card-bar.bar-teal{ background:var(--signal); }
+  .hub-card-bar.bar-sage{ background:var(--ember); }
+  .hub-card-body{ padding:24px; }
+  .hub-card-body h3{ font-family:var(--font-display); font-weight:700; font-size:17px; margin:14px 0 8px; line-height:1.35; }
+  .hub-card-body p{ font-size:14px; color:var(--slate); margin-bottom:16px; }
+
+  /* FAQ block + newsletter */
+  .faq-block{ margin-top:16px; }
+  .faq-row{ padding:30px 0; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  .faq-row:last-child{ border-bottom:1px solid var(--line); }
+  @media (max-width:760px){ .faq-row{ grid-template-columns:1fr; gap:8px; } }
+  .faq-q{ font-family:var(--font-display); font-weight:700; font-size:19px; }
+  .faq-a{ font-size:14.5px; color:var(--slate); }
+
+  /* WHY US — two-column split, distinct from the card-grid pattern used elsewhere */
+  .why-split{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start; }
+  @media (max-width:860px){ .why-split{ grid-template-columns:1fr; gap:32px; } }
+  .why-intro h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.6rem,3vw,2.1rem); letter-spacing:-0.01em; margin:14px 0 12px; }
+  .why-intro p{ color:var(--slate); font-size:15.5px; }
+  .why-rows{ display:flex; flex-direction:column; }
+  .why-row{ display:flex; gap:18px; padding:22px 0; border-top:1px solid var(--line); }
+  .why-row:first-child{ border-top:none; padding-top:0; }
+  .why-row .ico{ color:var(--ember); flex-shrink:0; margin-top:3px; }
+  .why-row h3{ font-family:var(--font-display); font-weight:700; font-size:16px; margin-bottom:6px; }
+  .why-row p{ font-size:13.5px; color:var(--slate); line-height:1.5; }
+
+  /* FINAL CTA */
+  .cta-band{ text-align:center; }
+  .cta-band h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.9rem, 4vw, 3.2rem); margin-bottom:18px; letter-spacing:-0.01em; }
+  .cta-band p{ color:rgba(255,255,255,0.6); margin-bottom:36px; font-size:16px; }
+  .cta-btns{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+  /* PROCESS */
+  .process-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:24px; position:relative; }
+  .process-row::before{ content:''; position:absolute; top:19px; left:10%; right:10%; height:2px; background:repeating-linear-gradient(to right, var(--line) 0 8px, transparent 8px 14px); z-index:0; }
+  .process-step{ position:relative; z-index:1; background:var(--paper-2); }
+  @media (max-width:960px){ .process-row{ grid-template-columns:repeat(2,1fr); } .process-row::before{ display:none; } }
+  @media (max-width:560px){ .process-row{ grid-template-columns:1fr; } }
+  .step-num{ font-family:var(--font-display); font-weight:800; font-size:32px; color:var(--signal-dark); opacity:0.55; margin-bottom:14px; }
+  .process-step h3{ font-family:var(--font-display); font-weight:700; font-size:16.5px; margin-bottom:8px; }
+  .process-step p{ font-size:13.5px; color:var(--slate); line-height:1.5; }
+
+  /* FINAL CTA + FORM */
+  .cta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+  @media (max-width:900px){ .cta-grid{ grid-template-columns:1fr; gap:40px; } }
+  .cta-heading{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.6vw,2.5rem); letter-spacing:-0.01em; margin-bottom:16px; line-height:1.15; }
+  .cta-sub{ color:rgba(255,255,255,0.6); font-size:15.5px; margin-bottom:28px; }
+  .cta-checklist{ list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .cta-checklist li{ display:flex; align-items:flex-start; gap:10px; font-size:14.5px; color:rgba(255,255,255,0.75); }
+  .cta-checklist svg{ color:var(--signal-on-dark); flex-shrink:0; margin-top:2px; }
+  .lead-form{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:32px; box-shadow:var(--shadow-dark); }
+  .form-row{ margin-bottom:18px; }
+  .form-row label{ display:block; font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:7px; font-weight:500; }
+  .form-row input, .form-row select, .form-row textarea{ width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:11px 13px; font-family:var(--font-body); font-size:14.5px; color:#fff; outline:none; transition:border-color 0.15s ease; }
+  .form-row input::placeholder, .form-row textarea::placeholder{ color:rgba(255,255,255,0.3); }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus{ border-color:var(--signal-on-dark); }
+  .form-row select{ cursor:pointer; }
+  .form-row select option{ background:#123D22; color:#fff; }
+  .form-row textarea{ resize:vertical; font-family:var(--font-body); }
+  .form-error{ font-size:13px; color:#F0997B; margin-bottom:16px; }
+  .form-success{ text-align:center; padding:30px 10px; }
+  .form-success svg{ margin:0 auto 14px; }
+  .form-success h3{ font-family:var(--font-display); font-weight:700; font-size:19px; margin-bottom:8px; }
+  .form-success p{ font-size:14px; color:rgba(255,255,255,0.6); }
+
+  /* UTM TOOL */
+  .tool-card{ max-width:720px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:20px; padding:36px; box-shadow:var(--shadow-md); }
+  .tool-field{ margin-bottom:18px; }
+  .tool-field label{ display:block; font-size:13px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  .tool-field .req{ color:var(--ember); font-weight:400; }
+  .tool-field input{ width:100%; padding:12px 14px; border:1.5px solid var(--line); border-radius:10px; font-size:14.5px; font-family:inherit; color:var(--ink); transition:border-color 0.15s ease; }
+  .tool-field input:focus{ outline:none; border-color:var(--signal-dark); }
+  .tool-field .hint{ font-size:12px; color:var(--slate); margin-top:4px; }
+  .tool-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:560px){ .tool-row{ grid-template-columns:1fr; } }
+  .tool-output{ margin-top:28px; padding-top:24px; border-top:1px solid var(--line); }
+  .tool-output-box{ background:var(--paper-2); border-radius:12px; padding:16px; font-family:var(--font-mono); font-size:13px; color:var(--ink); word-break:break-all; margin-bottom:14px; min-height:24px; }
+  .tool-output-box.empty{ color:var(--slate); font-family:inherit; font-style:italic; }
+  .tool-copy-btn{ background:var(--signal-dark); color:#fff; border:none; padding:11px 20px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; font-family:inherit; transition:opacity 0.15s ease; }
+  .tool-copy-btn:hover{ opacity:0.9; }
+  .tool-copy-btn.copied{ background:#1B6E20; }
+
+  /* LEGAL PAGE CONTENT */
+  .legal-wrap{ max-width:760px; margin:0 auto; padding:0 32px; }
+  .legal-updated{ font-size:13px; color:var(--slate); margin-bottom:36px; }
+  .legal-wrap h2{ font-family:var(--font-display); font-weight:700; font-size:22px; margin-top:38px; margin-bottom:12px; }
+  .legal-wrap h2:first-of-type{ margin-top:0; }
+  .legal-wrap p{ font-size:15px; color:var(--ink); line-height:1.7; margin-bottom:14px; }
+  .legal-wrap ul{ margin:0 0 14px 22px; }
+  .legal-wrap li{ font-size:15px; color:var(--ink); line-height:1.7; margin-bottom:8px; }
+  .legal-wrap a{ color:var(--signal-dark); font-weight:600; }
+  .legal-note{ background:var(--paper-2); border-left:3px solid var(--ember); padding:14px 18px; border-radius:8px; font-size:13.5px; color:var(--slate); margin-bottom:32px; }
+
+  /* CASE STUDIES */
+  .case-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; }
+  .case-card{ background:#fff; border:1px solid var(--line); border-radius:20px; padding:24px; box-shadow:var(--shadow-sm); transition:box-shadow 0.2s ease, transform 0.2s ease; }
+  .case-card:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+  .case-logo{ height:56px; display:flex; align-items:center; margin-bottom:16px; padding:0 4px; border-radius:8px; }
+  .case-logo.dark{ background:#123D22; padding:8px 12px; height:40px; }
+  .case-logo img{ max-height:100%; max-width:150px; object-fit:contain; }
+  .case-body h3{ font-family:var(--font-display); font-weight:700; font-size:16.5px; margin:10px 0 8px; }
+  .case-placeholder{ font-size:13px; color:var(--slate); font-style:italic; }
+
+  /* TESTIMONIALS */
+  .testimonial-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; }
+  .testimonial-card{ background:#fff; border-radius:20px; padding:26px; box-shadow:var(--shadow-sm); }
+  .testimonial-card.placeholder{ border:2px dashed var(--line); box-shadow:none; }
+  .stars{ color:var(--ember); letter-spacing:2px; margin-bottom:12px; }
+  .testimonial-quote{ font-size:14.5px; color:var(--slate); font-style:italic; margin-bottom:14px; line-height:1.5; }
+  .testimonial-who{ font-family:var(--font-display); font-weight:700; font-size:14px; }
+
+  /* WHATSAPP CTA CARD */
+  .wa-card{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:40px 36px; box-shadow:var(--shadow-dark); text-align:center; }
+  .wa-icon{ width:56px; height:56px; border-radius:50%; background:rgba(37,211,102,0.15); color:#25D366; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+  .wa-card h3{ font-family:var(--font-display); font-weight:700; font-size:19px; margin-bottom:10px; }
+  .wa-card p{ font-size:14.5px; color:rgba(255,255,255,0.6); margin-bottom:24px; line-height:1.55; }
+  .wa-btn{ background:#25D366; width:100%; justify-content:center; box-shadow:0 8px 20px -6px rgba(37,211,102,0.5); }
+  .wa-btn:hover{ background:#1EBE5A; box-shadow:0 10px 24px -6px rgba(37,211,102,0.55); }
+  .wa-phone{ display:block; margin-top:16px; font-size:13.5px; color:rgba(255,255,255,0.55); }
+  .wa-phone:hover{ color:#fff; }
+
+  /* NEWSLETTER (learning hub) */
+  .newsletter-row{ margin-top:40px; background:var(--paper-2); border:1px solid var(--line); border-radius:20px; padding:28px 32px; box-shadow:var(--shadow-sm); }
+  .newsletter-inner{ display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; }
+  .newsletter-title{ font-family:var(--font-display); font-weight:700; font-size:18px; margin-bottom:4px; }
+  .newsletter-sub{ font-size:13.5px; color:var(--slate); }
+  .newsletter-form{ display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; }
+  .newsletter-form input{ background:#fff; border:1px solid var(--line); border-radius:6px; padding:11px 14px; font-family:var(--font-body); font-size:14px; min-width:220px; outline:none; }
+  .newsletter-form input:focus{ border-color:var(--signal-dark); }
+  .newsletter-success{ display:flex; align-items:center; gap:10px; font-size:14.5px; color:var(--signal-dark); font-weight:500; }
+  .nl-error{ font-size:12.5px; color:#993C1D; width:100%; }
+  @media (max-width:640px){ .newsletter-inner{ flex-direction:column; align-items:flex-start; } .newsletter-form{ width:100%; } .newsletter-form input{ flex:1; min-width:0; } }
+
+  /* SAMPLE REPORT */
+  .report-frame{ background:#FFFFFF; border-radius:22px; border:1px solid var(--line); box-shadow:var(--shadow-lg); overflow:hidden; }
+  .report-chrome{ display:flex; align-items:center; gap:8px; padding:14px 18px; border-bottom:1px solid var(--line); background:var(--paper-2); }
+  .report-chrome i{ width:10px; height:10px; border-radius:50%; background:var(--line); display:block; }
+  .report-url{ margin-left:10px; font-family:var(--font-mono); font-size:12px; color:var(--slate); }
+  .report-body{ padding:32px; }
+  .report-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:28px; }
+  @media (max-width:760px){ .report-stats{ grid-template-columns:1fr; } }
+  .stat-card{ background:var(--paper-2); border-radius:16px; padding:20px; }
+  .stat-label{ display:block; font-size:13px; color:var(--slate); margin-bottom:8px; }
+  .stat-value{ display:block; font-family:var(--font-display); font-weight:700; font-size:20px; margin-bottom:12px; }
+  .bar-mini{ height:6px; border-radius:3px; background:rgba(20,160,133,0.15); overflow:hidden; }
+  .bar-mini .bar-fill{ height:100%; background:var(--signal); border-radius:3px; }
+  .report-chart{ background:var(--paper-2); border-radius:16px; padding:24px 24px 16px; }
+  .chart-bars{ display:flex; align-items:flex-end; gap:14px; height:120px; }
+  .chart-bars .bar{ flex:1; background:linear-gradient(180deg, var(--signal), var(--signal-dark)); border-radius:6px 6px 0 0; }
+  .report-note{ text-align:center; font-size:13px; color:var(--slate); margin-top:20px; }
+
+  /* SCROLL REVEAL — progressive enhancement: hidden state only applied by JS,
+     so content stays fully visible if JS fails or doesn't run (crawlers, slow loads) */
+  .reveal-init{ opacity:0; transform:translateY(22px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-init.reveal-visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .reveal-init{ opacity:1; transform:none; transition:none; } }
+
+  /* FOOTER */
+  footer{ background:var(--grad-dark); color:rgba(255,255,255,0.55); padding:64px 0 32px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:48px; }
+  @media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-grid h4{ font-family:var(--font-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:rgba(255,255,255,0.35); margin-bottom:16px; }
+  .foot-grid a{ display:block; font-size:14px; margin-bottom:10px; color:rgba(255,255,255,0.7); }
+  .foot-grid a:hover{ color:#fff; }
+  .foot-logo{ font-family:var(--font-display); font-weight:800; font-size:19px; color:#fff; margin-bottom:12px; }
+  .foot-tagline{ font-size:13.5px; max-width:230px; line-height:1.55; margin-bottom:16px; }
+  .foot-contact{ display:flex; flex-direction:column; gap:8px; }
+  .foot-contact a, .foot-contact span{ display:block; font-size:13.5px; color:rgba(255,255,255,0.7); }
+  .foot-contact a:hover{ color:#fff; }
+  .foot-bottom{ border-top:1px solid rgba(255,255,255,0.08); padding-top:24px; display:flex; justify-content:space-between; font-size:12.5px; flex-wrap:wrap; gap:12px; }
+
+  @media (prefers-reduced-motion: reduce){ #query-text, h1.rotating{ transition:none !important; } }
+
+  /* ACCESSIBILITY: skip link + visible focus rings */
+  .skip-link{ position:absolute; top:-100px; left:16px; background:var(--signal); color:#fff; padding:12px 20px; border-radius:6px; font-weight:600; font-size:14px; z-index:100; transition:top 0.15s ease; }
+  .skip-link:focus{ top:16px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline:3px solid var(--signal-on-dark); outline-offset:2px; border-radius:4px;
+  }
+  .lead-form input:focus-visible, .lead-form select:focus-visible, .lead-form textarea:focus-visible,
+  .newsletter-form input:focus-visible{ outline-color:var(--signal); }
+  .menu-toggle{ min-width:44px; min-height:44px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free UTM Builder",
+  "description": "Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.",
+  "url": "https://npagedigital.com/tools/utm-builder/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (web-based)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "N Page Digital",
+    "url": "https://npagedigital.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I just do PPC and skip SEO entirely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can, but you'll be paying for every single visitor indefinitely, including the ones who'd have found you for free eventually. Most businesses that skip SEO long-term end up paying more over time than they would have otherwise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long before SEO actually starts working?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Meaningful movement usually takes a few months, sometimes longer for competitive terms. It's genuinely not a fast channel, which is exactly why some budget for PPC in parallel makes sense early on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is PPC a waste of money if I stop paying?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not a waste, since you got the clicks and whatever came from them while it ran. It just doesn't compound the way SEO does. The visibility simply ends when the budget does."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my budget is very small?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Small budgets often do better concentrated on Local SEO first, since it's typically cheaper to move than broad SEO or PPC and has a real, fast-moving local impact."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo-chip"><img src="data:image/png;base64,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" alt="N Page Digital" height="26"></a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <button class="nav-trigger">Services <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="dropdown">
+          <a href="#services">SEO</a>
+          <a href="#services">Local SEO & Google Business</a>
+          <a href="#services">Google Ads & PPC</a>
+          <a href="#services">Social media marketing</a>
+          <a href="#services">Website design</a>
+          <a href="#services">AI marketing & automation</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="nav-trigger">Industries <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="dropdown">
+          <a href="/industries/hospitals-clinics/">Hospitals &amp; clinics</a>
+          <a href="/industries/dental-clinics/">Dental clinics</a>
+          <a href="/industries/real-estate/">Real estate</a>
+          <a href="/industries/restaurants-hospitality/">Restaurants &amp; hospitality</a>
+          <a href="/industries/interior-designers/">Interior designers</a>
+          <a href="/industries/education/">Education</a>
+          <a href="/industries/ecommerce-retail/">E-commerce &amp; retail</a>
+          <a href="/industries/law-firms/">Law firms</a>
+          <a href="/industries/astrology/">Astrology</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="nav-trigger">Learning hub <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="dropdown">
+          <a href="/learn/digital-marketing-basics/">Digital marketing basics</a>
+          <a href="/learn/ai-for-business/">AI for business</a>
+          <a href="/learn/industry-guides/">Industry guides</a>
+          <a href="/learn/seo-aeo-geo-guides/">SEO, AEO & GEO guides</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="nav-trigger">Free Tools <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="dropdown">
+          <a href="/tools/utm-builder/">UTM Builder</a>
+          <a href="/tools/whatsapp-link-generator/">WhatsApp Link Generator</a>
+          <a href="/tools/meta-generator/">Meta Title &amp; Description Generator</a>
+        </div>
+      </div>
+      <a href="#">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20Your%20website%20convinced%20me%20%E2%9C%85%20I%27d%20love%20a%20free%20consultation%20to%20see%20how%20you%20can%20grow%20my%20business%20%F0%9F%8C%9F" target="_blank" rel="noopener" class="btn btn--primary" style="padding:11px 20px; font-size:14px;">Book a consultation</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span id="menu-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mob-accordion">
+      <button class="mob-acc-toggle">Services <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mob-acc-panel">
+        <a href="#services">SEO</a>
+        <a href="#services">Local SEO & Google Business</a>
+        <a href="#services">Google Ads & PPC</a>
+        <a href="#services">Social media marketing</a>
+        <a href="#services">Website design</a>
+        <a href="#services">AI marketing & automation</a>
+      </div>
+    </div>
+    <div class="mob-accordion">
+      <button class="mob-acc-toggle">Industries <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mob-acc-panel">
+        <a href="/industries/hospitals-clinics/">Hospitals &amp; clinics</a>
+        <a href="/industries/dental-clinics/">Dental clinics</a>
+        <a href="/industries/real-estate/">Real estate</a>
+        <a href="/industries/restaurants-hospitality/">Restaurants &amp; hospitality</a>
+        <a href="/industries/interior-designers/">Interior designers</a>
+        <a href="/industries/education/">Education</a>
+        <a href="/industries/ecommerce-retail/">E-commerce &amp; retail</a>
+        <a href="/industries/law-firms/">Law firms</a>
+        <a href="/industries/astrology/">Astrology</a>
+      </div>
+    </div>
+    <div class="mob-accordion">
+      <button class="mob-acc-toggle">Learning hub <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mob-acc-panel">
+        <a href="/learn/digital-marketing-basics/">Digital marketing basics</a>
+        <a href="/learn/ai-for-business/">AI for business</a>
+        <a href="/learn/industry-guides/">Industry guides</a>
+        <a href="/learn/seo-aeo-geo-guides/">SEO, AEO & GEO guides</a>
+      </div>
+    </div>
+    <div class="mob-accordion">
+      <button class="mob-acc-toggle">Free Tools <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mob-acc-panel">
+        <a href="/tools/utm-builder/">UTM Builder</a>
+        <a href="/tools/whatsapp-link-generator/">WhatsApp Link Generator</a>
+        <a href="/tools/meta-generator/">Meta Title &amp; Description Generator</a>
+      </div>
+    </div>
+    <a href="#">About</a>
+    <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20Your%20website%20convinced%20me%20%E2%9C%85%20I%27d%20love%20a%20free%20consultation%20to%20see%20how%20you%20can%20grow%20my%20business%20%F0%9F%8C%9F" target="_blank" rel="noopener" class="btn btn--primary mob-cta">Book a consultation</a>
+  </div>
+</nav>
+
+<section class="hero" id="main-content">
+  <div class="wrap hero-inner">
+    <div class="query-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07l-1 1"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07l1-1"/></svg>
+      <span>Free Tools</span>
+    </div>
+    <div class="headline-wrap" style="min-height:auto;">
+      <h1 class="rotating">Free UTM Builder</h1>
+    </div>
+    <div class="cite-line">
+      <svg class="check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      Build a properly tagged campaign link in seconds
+    </div>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none"><path d="M0,28 C320,58 1120,0 1440,26 L1440,56 L0,56 Z" fill="#F4F7FB"/></svg>
+  </div>
+</section>
+
+<section class="sect on-light">
+  <div class="wrap">
+    <div class="tool-card reveal">
+      <div class="tool-field">
+        <label>Website URL <span class="req">*</span></label>
+        <input type="text" id="utm-url" placeholder="https://example.com/page">
+      </div>
+      <div class="tool-row">
+        <div class="tool-field">
+          <label>Campaign Source <span class="req">*</span></label>
+          <input type="text" id="utm-source" placeholder="facebook, newsletter, google">
+        </div>
+        <div class="tool-field">
+          <label>Campaign Medium <span class="req">*</span></label>
+          <input type="text" id="utm-medium" placeholder="cpc, email, social">
+        </div>
+      </div>
+      <div class="tool-field">
+        <label>Campaign Name <span class="req">*</span></label>
+        <input type="text" id="utm-campaign" placeholder="spring_sale, product_launch">
+      </div>
+      <div class="tool-row">
+        <div class="tool-field">
+          <label>Campaign Term <span style="color:var(--slate); font-weight:400;">(optional)</span></label>
+          <input type="text" id="utm-term" placeholder="paid keyword">
+          <div class="hint">Used for paid search keywords</div>
+        </div>
+        <div class="tool-field">
+          <label>Campaign Content <span style="color:var(--slate); font-weight:400;">(optional)</span></label>
+          <input type="text" id="utm-content" placeholder="banner_ad, text_link">
+          <div class="hint">Used to A/B test ad variations</div>
+        </div>
+      </div>
+
+      <div class="tool-output">
+        <label style="display:block; font-size:13px; font-weight:700; color:var(--ink); margin-bottom:8px;">Your tagged URL</label>
+        <div class="tool-output-box empty" id="utm-output">Fill in the required fields above to generate your link</div>
+        <button class="tool-copy-btn" id="utm-copy-btn">Copy link</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect on-panel">
+  <div class="wrap">
+    <div class="legal-wrap" style="padding:0;">
+      <h2>What is a UTM link, and why bother?</h2>
+      <p>A UTM link is a normal URL with a few extra tracking tags added to the end. When someone clicks it, Google Analytics (or most other analytics tools) can tell you exactly which campaign, source, and medium sent them — instead of just showing you "traffic went up" with no idea why.</p>
+      <p>Without UTM tags, a click from your Instagram bio and a click from a paid Facebook ad both just show up as generic "social" traffic, indistinguishable from each other. With tags, you can see precisely which one actually drove the visit — and eventually, which one drove an actual booking.</p>
+
+      <h2>What each field actually means</h2>
+      <p><strong>Source</strong> is where the traffic is coming from — the specific platform or site, like "facebook" or "newsletter."</p>
+      <p><strong>Medium</strong> is the type of traffic — "cpc" for paid ads, "email" for email campaigns, "social" for organic social posts.</p>
+      <p><strong>Campaign</strong> is the name of the specific push you're running — "spring_sale" or "diwali_offer" — so you can group all the clicks from that one campaign together later.</p>
+      <p><strong>Term and Content</strong> are optional, mostly useful for paid search keywords and A/B testing different ad creative against each other.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sect on-light" id="faq">
+  <div class="wrap">
+    <div class="sect-head reveal">
+      <div class="eyebrow-row">
+        <svg class="reticle" viewBox="0 0 24 24" fill="none" stroke="var(--signal-dark)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5" fill="var(--signal-dark)" stroke="none"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/></svg>
+        <span class="eyebrow dark">FAQ</span>
+      </div>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-block reveal">
+      <div class="faq-row">
+        <div class="faq-q">Will UTM tags break my link or change where it goes?</div>
+        <div class="faq-a">No — the tags are just extra information added after a "?" in the URL. The link still goes to exactly the same page; the tags are only read by analytics tools, not by your website itself.</div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Do I need UTM tags on every link I ever share?</div>
+        <div class="faq-a">Not every single one, but definitely for anything you're actually trying to measure — paid ads, email campaigns, and any specific push where you want to know if it actually worked.</div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Should source, medium, and campaign be capitalized?</div>
+        <div class="faq-a">Keep them lowercase and consistent. Google Analytics treats "Facebook" and "facebook" as two different sources, which quietly splits your data in half without you realizing why.</div>
+      </div>
+      <div class="faq-row">
+        <div class="faq-q">Does this work for Instagram, WhatsApp, and other non-Google platforms?</div>
+        <div class="faq-a">Yes — UTM tags work on any link, on any platform. They're read by your analytics tool, not the platform you're sharing the link on.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect on-dark" id="contact">
+  <div class="wrap">
+    <div class="cta-grid reveal">
+      <div class="cta-copy">
+        <span class="eyebrow light" style="margin-bottom:16px; display:block;">Need more than a free tool?</span>
+        <h2 class="cta-heading">Want your whole tracking set up properly?</h2>
+        <p class="cta-sub">We set up full campaign tracking, dashboards, and reporting tied to real leads and bookings — not just clicks.</p>
+      </div>
+      <div class="wa-card">
+        <div class="wa-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.34A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18a7.93 7.93 0 01-4.06-1.11l-.29-.17-3.02.79.81-2.94-.19-.3A7.95 7.95 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.85c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41-.14-.01-.3-.01-.46-.01a.9.9 0 00-.65.3c-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.11-.22-.17-.46-.29z"/></svg>
+        </div>
+        <h3>Ask us on WhatsApp</h3>
+        <p>Get a real reply from our team about setting up your full tracking.</p>
+        <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20I%27d%20like%20help%20setting%20up%20campaign%20tracking." target="_blank" rel="noopener" class="btn btn--primary wa-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.34A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18a7.93 7.93 0 01-4.06-1.11l-.29-.17-3.02.79.81-2.94-.19-.3A7.95 7.95 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.85c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41-.14-.01-.3-.01-.46-.01a.9.9 0 00-.65.3c-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.11-.22-.17-.46-.29z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var urlEl = document.getElementById('utm-url');
+  var sourceEl = document.getElementById('utm-source');
+  var mediumEl = document.getElementById('utm-medium');
+  var campaignEl = document.getElementById('utm-campaign');
+  var termEl = document.getElementById('utm-term');
+  var contentEl = document.getElementById('utm-content');
+  var outputEl = document.getElementById('utm-output');
+  var copyBtn = document.getElementById('utm-copy-btn');
+
+  function buildUrl(){
+    var url = urlEl.value.trim();
+    var source = sourceEl.value.trim();
+    var medium = mediumEl.value.trim();
+    var campaign = campaignEl.value.trim();
+    var term = termEl.value.trim();
+    var content = contentEl.value.trim();
+
+    if(!url || !source || !medium || !campaign){
+      outputEl.textContent = 'Fill in the required fields above to generate your link';
+      outputEl.classList.add('empty');
+      return;
+    }
+
+    var params = [];
+    params.push('utm_source=' + encodeURIComponent(source));
+    params.push('utm_medium=' + encodeURIComponent(medium));
+    params.push('utm_campaign=' + encodeURIComponent(campaign));
+    if(term) params.push('utm_term=' + encodeURIComponent(term));
+    if(content) params.push('utm_content=' + encodeURIComponent(content));
+
+    var separator = url.indexOf('?') > -1 ? '&' : '?';
+    var finalUrl = url + separator + params.join('&');
+
+    outputEl.textContent = finalUrl;
+    outputEl.classList.remove('empty');
+  }
+
+  [urlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl].forEach(function(el){
+    el.addEventListener('input', buildUrl);
+  });
+
+  copyBtn.addEventListener('click', function(){
+    var text = outputEl.textContent;
+    if(outputEl.classList.contains('empty')) return;
+    navigator.clipboard.writeText(text).then(function(){
+      copyBtn.textContent = 'Copied!';
+      copyBtn.classList.add('copied');
+      setTimeout(function(){
+        copyBtn.textContent = 'Copy link';
+        copyBtn.classList.remove('copied');
+      }, 1800);
+    });
+  });
+})();
+</script>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo-chip foot-logo-chip"><img src="data:image/png;base64,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" alt="N Page Digital" height="24"></div>
+        <p class="foot-tagline">Digital marketing and AI tools for local businesses, built around getting found and getting booked.</p>
+        <div class="foot-contact">
+          <a href="tel:+918876774521">+91 88767 74521</a>
+          <a href="mailto:npagedigital@gmail.com">npagedigital@gmail.com</a>
+          <span>Jayanagar, Guwahati, 781022</span>
+        </div>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="#">SEO</a>
+        <a href="#">Local SEO & GBP</a>
+        <a href="#">Google Ads & PPC</a>
+        <a href="#">AI marketing & automation</a>
+      </div>
+      <div>
+        <h4>Industries</h4>
+        <a href="#">Dental clinics</a>
+        <a href="#">Universities & education</a>
+        <a href="#">Law firms</a>
+        <a href="#">View all industries</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">Learning hub</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20Your%20website%20convinced%20me%20%E2%9C%85%20I%27d%20love%20a%20free%20consultation%20to%20see%20how%20you%20can%20grow%20my%20business%20%F0%9F%8C%9F" target="_blank" rel="noopener">Book a consultation</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 N Page Digital. All rights reserved.</span>
+      <span>Privacy policy &nbsp;&middot;&nbsp; Terms of service</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var menuToggle = document.getElementById('menu-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var menuIcon = document.getElementById('menu-icon');
+  var hamburgerSvg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  var closeSvg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+  menuToggle.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuIcon.innerHTML = isOpen ? closeSvg : hamburgerSvg;
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuIcon.innerHTML = hamburgerSvg;
+    });
+  });
+
+  document.querySelectorAll('.mob-acc-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = btn.nextElementSibling;
+      panel.classList.toggle('open');
+    });
+  });
+
+  var navEl = document.querySelector('nav');
+  window.addEventListener('scroll', function(){
+    navEl.classList.toggle('scrolled', window.scrollY > 8);
+  });
+
+  var reduceMotionReveal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Cursor spotlight in hero
+  var heroEl = document.querySelector('.hero');
+  var spotlightEl = document.getElementById('spotlight');
+  if(heroEl && spotlightEl && !reduceMotionReveal){
+    heroEl.addEventListener('mousemove', function(e){
+      var rect = heroEl.getBoundingClientRect();
+      var mx = ((e.clientX - rect.left) / rect.width) * 100;
+      var my = ((e.clientY - rect.top) / rect.height) * 100;
+      spotlightEl.style.setProperty('--mx', mx + '%');
+      spotlightEl.style.setProperty('--my', my + '%');
+    });
+  }
+
+  // 3D tilt on elevated cards
+  if(!reduceMotionReveal && window.matchMedia('(hover: hover)').matches){
+    document.querySelectorAll('.tilt').forEach(function(card){
+      card.addEventListener('mousemove', function(e){
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width - 0.5;
+        var py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = 'perspective(800px) rotateX(' + (py * -6) + 'deg) rotateY(' + (px * 6) + 'deg) translateY(-3px)';
+      });
+      card.addEventListener('mouseleave', function(){
+        card.style.transform = '';
+      });
+    });
+  }
+  if(!reduceMotionReveal && 'IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll('.reveal');
+    revealEls.forEach(function(el){ el.classList.add('reveal-init'); });
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('reveal-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ revealObserver.observe(el); });
+    // Safety net: guarantee nothing stays hidden indefinitely (crawlers, odd viewports, etc.)
+    setTimeout(function(){
+      document.querySelectorAll('.reveal-init:not(.reveal-visible)').forEach(function(el){
+        el.classList.add('reveal-visible');
+      });
+    }, 1800);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+name: Deploy to Hostinger
+
+# Runs automatically on every push to main.
+# To test changes safely first, push to a different branch and merge to main when ready.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------------
+      # OPTIONAL BUILD STEP — not needed yet, since pages are currently
+      # hand-built static HTML. If a build step is added later (e.g.
+      # generating FAQ schema JSON-LD from the same source as the
+      # visible accordion, or converting markdown content pages to
+      # HTML), uncomment and adjust the lines below.
+      # --------------------------------------------------------------
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      #
+      # - name: Install dependencies
+      #   run: npm install
+      #
+      # - name: Run build
+      #   run: npm run build
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Change this to ./dist/ if a build step is added later
+          local-dir: ./public/
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/*.md
