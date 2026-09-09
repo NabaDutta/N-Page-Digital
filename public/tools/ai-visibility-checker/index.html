@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free UTM Builder | N Page Digital</title>
-<meta name="description" content="Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.">
-<link rel="canonical" href="https://npagedigital.com/tools/utm-builder/">
+<title>Free AI Search Visibility Checker | N Page Digital</title>
+<meta name="description" content="Check how ready your business is to be found by ChatGPT and other AI tools. A free 8-point self-assessment, no fake AI scan.">
+<link rel="canonical" href="https://npagedigital.com/tools/ai-visibility-checker/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://npagedigital.com/tools/utm-builder/">
-<meta property="og:title" content="Free UTM Builder | N Page Digital">
-<meta property="og:description" content="Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.">
+<meta property="og:url" content="https://npagedigital.com/tools/ai-visibility-checker/">
+<meta property="og:title" content="Free AI Search Visibility Checker | N Page Digital">
+<meta property="og:description" content="Check how ready your business is to be found by ChatGPT and other AI tools. A free 8-point self-assessment, no fake AI scan.">
 <meta property="og:image" content="https://npagedigital.com/og-image.png">
 <meta property="og:site_name" content="N Page Digital">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free UTM Builder | N Page Digital">
-<meta name="twitter:description" content="Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.">
+<meta name="twitter:title" content="Free AI Search Visibility Checker | N Page Digital">
+<meta name="twitter:description" content="Check how ready your business is to be found by ChatGPT and other AI tools. A free 8-point self-assessment, no fake AI scan.">
 <meta name="twitter:image" content="https://npagedigital.com/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -302,6 +302,35 @@
   .form-success h3{ font-family:var(--font-display); font-weight:700; font-size:19px; margin-bottom:8px; }
   .form-success p{ font-size:14px; color:rgba(255,255,255,0.6); }
 
+  /* AI VISIBILITY CHECKER */
+  .check-item{ display:flex; align-items:flex-start; gap:14px; padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; }
+  .check-item:last-child{ border-bottom:none; }
+  .check-box{ width:24px; height:24px; border-radius:6px; border:2px solid var(--line); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; transition:all 0.15s ease; }
+  .check-box svg{ opacity:0; transition:opacity 0.15s ease; }
+  .check-item.checked .check-box{ background:var(--signal-dark); border-color:var(--signal-dark); }
+  .check-item.checked .check-box svg{ opacity:1; }
+  .check-item h4{ font-family:var(--font-display); font-weight:700; font-size:15px; margin-bottom:3px; }
+  .check-item p{ font-size:13px; color:var(--slate); margin:0; }
+  .score-card{ text-align:center; padding:32px; background:var(--paper-2); border-radius:16px; margin-top:28px; }
+  .score-number{ font-family:var(--font-display); font-weight:800; font-size:52px; color:var(--signal-dark); line-height:1; }
+  .score-label{ font-family:var(--font-display); font-weight:700; font-size:19px; margin:8px 0 10px; }
+  .score-desc{ font-size:14px; color:var(--slate); max-width:440px; margin:0 auto; }
+
+  /* META GENERATOR TOOL */
+  .char-counter{ font-family:var(--font-mono); font-size:12px; margin-top:5px; }
+  .char-counter.good{ color:var(--signal-dark); }
+  .char-counter.warn{ color:var(--ember); }
+  .char-counter.bad{ color:#C0392B; }
+  .serp-preview{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 24px; font-family:Arial, sans-serif; }
+  .serp-url{ font-size:13px; color:#202124; margin-bottom:2px; }
+  .serp-url .domain-dot{ display:inline-block; width:22px; height:22px; border-radius:50%; background:var(--signal-tint); color:var(--signal-dark); text-align:center; line-height:22px; font-size:11px; font-weight:700; margin-right:8px; vertical-align:middle; }
+  .serp-title{ color:#1a0dab; font-size:19px; line-height:1.3; margin:2px 0 3px; cursor:pointer; }
+  .serp-title:hover{ text-decoration:underline; }
+  .serp-desc{ color:#4d5156; font-size:13.5px; line-height:1.4; }
+  .template-options{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .template-btn{ background:var(--paper-2); border:1.5px solid var(--line); border-radius:8px; padding:7px 14px; font-size:12.5px; font-weight:600; color:var(--ink); cursor:pointer; font-family:inherit; }
+  .template-btn.active{ background:var(--signal-tint); border-color:var(--signal-dark); color:var(--signal-dark); }
+
   /* UTM TOOL */
   .tool-card{ max-width:720px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:20px; padding:36px; box-shadow:var(--shadow-md); }
   .tool-field{ margin-bottom:18px; }
@@ -462,22 +491,21 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Free UTM Builder",
-  "description": "Build a properly tagged UTM link in seconds. Free UTM campaign URL builder for Google Analytics, Google Ads, and social media tracking.",
-  "url": "https://npagedigital.com/tools/utm-builder/",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Any (web-based)",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "INR"
-  },
-  "provider": {
+  "@type": "BlogPosting",
+  "headline": "SEO vs PPC: which is better?",
+  "description": "A straight answer on SEO vs PPC — what each actually does, and which one your business probably needs first.",
+  "author": {
     "@type": "Organization",
     "name": "N Page Digital",
     "url": "https://npagedigital.com"
-  }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "N Page Digital",
+    "url": "https://npagedigital.com"
+  },
+  "datePublished": "REPLACE-WITH-ACTUAL-GO-LIVE-DATE",
+  "mainEntityOfPage": "https://npagedigital.com/learn/seo-vs-ppc/"
 }
 </script>
 <script type="application/ld+json">
@@ -566,14 +594,6 @@
           <a href="/learn/paid-advertising/">Paid Advertising</a>
         </div>
       </div>
-      <div class="nav-item">
-        <button class="nav-trigger">Free Tools <svg class="chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="dropdown">
-          <a href="/tools/utm-builder/">UTM Builder</a>
-          <a href="/tools/whatsapp-link-generator/">WhatsApp Link Generator</a>
-          <a href="/tools/meta-generator/">Meta Title &amp; Description Generator</a>
-        </div>
-      </div>
       <a href="/about/">About</a>
     </div>
     <div class="nav-right">
@@ -624,14 +644,6 @@
         <a href="/learn/paid-advertising/">Paid Advertising</a>
       </div>
     </div>
-    <div class="mob-accordion">
-      <button class="mob-acc-toggle">Free Tools <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button>
-      <div class="mob-acc-panel">
-        <a href="/tools/utm-builder/">UTM Builder</a>
-        <a href="/tools/whatsapp-link-generator/">WhatsApp Link Generator</a>
-        <a href="/tools/meta-generator/">Meta Title &amp; Description Generator</a>
-      </div>
-    </div>
     <a href="/about/">About</a>
     <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20Your%20website%20convinced%20me%20%E2%9C%85%20I%27d%20love%20a%20free%20consultation%20to%20see%20how%20you%20can%20grow%20my%20business%20%F0%9F%8C%9F" target="_blank" rel="noopener" class="btn btn--primary mob-cta">Book a consultation</a>
   </div>
@@ -640,15 +652,15 @@
 <section class="hero" id="main-content">
   <div class="wrap hero-inner">
     <div class="query-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07l-1 1"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07l1-1"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.9L19 9.7l-4.9 1.8L12 16.4l-1.8-4.9L5 9.7l4.9-1.8z"/></svg>
       <span>Free Tools</span>
     </div>
     <div class="headline-wrap" style="min-height:auto;">
-      <h1 class="rotating">Free UTM Builder</h1>
+      <h1 class="rotating">AI Search Visibility Checker</h1>
     </div>
     <div class="cite-line">
       <svg class="check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-      Build a properly tagged campaign link in seconds
+      An honest 8-point self-check, not a fake AI scan
     </div>
   </div>
   <div class="wave-divider">
@@ -658,42 +670,70 @@
 
 <section class="sect on-light">
   <div class="wrap">
-    <div class="tool-card reveal">
-      <div class="tool-field">
-        <label>Website URL <span class="req">*</span></label>
-        <input type="text" id="utm-url" placeholder="https://example.com/page">
-      </div>
-      <div class="tool-row">
-        <div class="tool-field">
-          <label>Campaign Source <span class="req">*</span></label>
-          <input type="text" id="utm-source" placeholder="facebook, newsletter, google">
-        </div>
-        <div class="tool-field">
-          <label>Campaign Medium <span class="req">*</span></label>
-          <input type="text" id="utm-medium" placeholder="cpc, email, social">
+    <div class="tool-card reveal" style="max-width:720px;">
+      <p style="font-size:14.5px; color:var(--slate); margin-bottom:8px;">Check the boxes that are honestly true for your business right now. This isn't scanning your site automatically — it's a self-assessment against the real factors that improve your odds of being cited by AI tools.</p>
+
+      <div class="check-item" data-item="0">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Consistent business info everywhere</h4>
+          <p>Your name, address, and phone number match exactly across your website, Google Business Profile, and any directory listing.</p>
         </div>
       </div>
-      <div class="tool-field">
-        <label>Campaign Name <span class="req">*</span></label>
-        <input type="text" id="utm-campaign" placeholder="spring_sale, product_launch">
-      </div>
-      <div class="tool-row">
-        <div class="tool-field">
-          <label>Campaign Term <span style="color:var(--slate); font-weight:400;">(optional)</span></label>
-          <input type="text" id="utm-term" placeholder="paid keyword">
-          <div class="hint">Used for paid search keywords</div>
+      <div class="check-item" data-item="1">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Real FAQ section on your website</h4>
+          <p>Your site has an FAQ block with genuine questions and direct, specific answers — not just a generic "About Us" paragraph.</p>
         </div>
-        <div class="tool-field">
-          <label>Campaign Content <span style="color:var(--slate); font-weight:400;">(optional)</span></label>
-          <input type="text" id="utm-content" placeholder="banner_ad, text_link">
-          <div class="hint">Used to A/B test ad variations</div>
+      </div>
+      <div class="check-item" data-item="2">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Content answers questions directly</h4>
+          <p>Your pages open with a clear answer in the first sentence or two, rather than building up to the point with marketing language.</p>
+        </div>
+      </div>
+      <div class="check-item" data-item="3">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Schema markup on your site</h4>
+          <p>Your website has structured data (JSON-LD schema) helping search engines and AI tools understand your business and content.</p>
+        </div>
+      </div>
+      <div class="check-item" data-item="4">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>AI crawlers aren't accidentally blocked</h4>
+          <p>You've checked your robots.txt file and confirmed it doesn't block AI crawlers like GPTBot or PerplexityBot without realizing it.</p>
+        </div>
+      </div>
+      <div class="check-item" data-item="5">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Google Business Profile fully filled out</h4>
+          <p>Your GBP has complete hours, photos, service area, and category info, and gets updated regularly, not left untouched for years.</p>
+        </div>
+      </div>
+      <div class="check-item" data-item="6">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Specific, not generic, content</h4>
+          <p>Your content includes real details about your business that a competitor couldn't just copy-paste onto their own site.</p>
+        </div>
+      </div>
+      <div class="check-item" data-item="7">
+        <div class="check-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h4>Genuine mentions elsewhere</h4>
+          <p>You have real reviews, directory listings, or mentions on other legitimate websites, not just your own site alone.</p>
         </div>
       </div>
 
-      <div class="tool-output">
-        <label style="display:block; font-size:13px; font-weight:700; color:var(--ink); margin-bottom:8px;">Your tagged URL</label>
-        <div class="tool-output-box empty" id="utm-output">Fill in the required fields above to generate your link</div>
-        <button class="tool-copy-btn" id="utm-copy-btn">Copy link</button>
+      <div class="score-card" id="score-card">
+        <div class="score-number" id="score-number">0/8</div>
+        <div class="score-label" id="score-label">Just Starting</div>
+        <div class="score-desc" id="score-desc">Check the boxes above that are true for your business to see your real score.</div>
       </div>
     </div>
   </div>
@@ -702,15 +742,9 @@
 <section class="sect on-panel">
   <div class="wrap">
     <div class="legal-wrap" style="padding:0;">
-      <h2>What is a UTM link, and why bother?</h2>
-      <p>A UTM link is a normal URL with a few extra tracking tags added to the end. When someone clicks it, Google Analytics (or most other analytics tools) can tell you exactly which campaign, source, and medium sent them — instead of just showing you "traffic went up" with no idea why.</p>
-      <p>Without UTM tags, a click from your Instagram bio and a click from a paid Facebook ad both just show up as generic "social" traffic, indistinguishable from each other. With tags, you can see precisely which one actually drove the visit — and eventually, which one drove an actual booking.</p>
-
-      <h2>What each field actually means</h2>
-      <p><strong>Source</strong> is where the traffic is coming from — the specific platform or site, like "facebook" or "newsletter."</p>
-      <p><strong>Medium</strong> is the type of traffic — "cpc" for paid ads, "email" for email campaigns, "social" for organic social posts.</p>
-      <p><strong>Campaign</strong> is the name of the specific push you're running — "spring_sale" or "diwali_offer" — so you can group all the clicks from that one campaign together later.</p>
-      <p><strong>Term and Content</strong> are optional, mostly useful for paid search keywords and A/B testing different ad creative against each other.</p>
+      <h2>Why this isn't a live AI scan</h2>
+      <p>An honest limitation worth stating directly: this tool can't actually query ChatGPT or Perplexity live to check whether they cite your business, since that would require a backend service holding API credentials — something a free static tool like this doesn't have. What it can do is check you against the real, documented factors that improve those odds, based on <a href="/learn/how-to-rank-on-chatgpt/">how AI tools actually decide what to cite</a>.</p>
+      <p>A perfect 8/8 here doesn't guarantee a citation — nothing can. But it means you've removed the common, avoidable reasons a business gets skipped over.</p>
     </div>
   </div>
 </section>
@@ -726,20 +760,20 @@
     </div>
     <div class="faq-block reveal">
       <div class="faq-row">
-        <div class="faq-q">Will UTM tags break my link or change where it goes?</div>
-        <div class="faq-a">No — the tags are just extra information added after a "?" in the URL. The link still goes to exactly the same page; the tags are only read by analytics tools, not by your website itself.</div>
+        <div class="faq-q">Is a low score a bad sign?</div>
+        <div class="faq-a">It just means there's room to improve, and most businesses starting out score low. It's a checklist for what to fix, not a verdict on your business.</div>
       </div>
       <div class="faq-row">
-        <div class="faq-q">Do I need UTM tags on every link I ever share?</div>
-        <div class="faq-a">Not every single one, but definitely for anything you're actually trying to measure — paid ads, email campaigns, and any specific push where you want to know if it actually worked.</div>
+        <div class="faq-q">Does checking all 8 boxes guarantee I'll show up in ChatGPT?</div>
+        <div class="faq-a">No — nothing can guarantee a specific AI citation. This removes common, avoidable barriers; it doesn't replace the AI's own judgment about what's actually relevant to a specific question.</div>
       </div>
       <div class="faq-row">
-        <div class="faq-q">Should source, medium, and campaign be capitalized?</div>
-        <div class="faq-a">Keep them lowercase and consistent. Google Analytics treats "Facebook" and "facebook" as two different sources, which quietly splits your data in half without you realizing why.</div>
+        <div class="faq-q">How do I actually check if my robots.txt blocks AI crawlers?</div>
+        <div class="faq-a">Visit yourdomain.com/robots.txt directly in a browser and look for lines mentioning GPTBot, PerplexityBot, or similar — if they're listed under "Disallow," those crawlers are blocked.</div>
       </div>
       <div class="faq-row">
-        <div class="faq-q">Does this work for Instagram, WhatsApp, and other non-Google platforms?</div>
-        <div class="faq-a">Yes — UTM tags work on any link, on any platform. They're read by your analytics tool, not the platform you're sharing the link on.</div>
+        <div class="faq-q">Does my score get saved anywhere?</div>
+        <div class="faq-a">No — this runs entirely in your browser and nothing is stored or sent anywhere. Refreshing the page resets it.</div>
       </div>
     </div>
   </div>
@@ -749,17 +783,17 @@
   <div class="wrap">
     <div class="cta-grid reveal">
       <div class="cta-copy">
-        <span class="eyebrow light" style="margin-bottom:16px; display:block;">Need more than a free tool?</span>
-        <h2 class="cta-heading">Want your whole tracking set up properly?</h2>
-        <p class="cta-sub">We set up full campaign tracking, dashboards, and reporting tied to real leads and bookings — not just clicks.</p>
+        <span class="eyebrow light" style="margin-bottom:16px; display:block;">Want a real, detailed audit?</span>
+        <h2 class="cta-heading">We'll actually check your specific site.</h2>
+        <p class="cta-sub">A free audit goes deeper than a self-assessment — we look at your actual pages, profile, and content directly.</p>
       </div>
       <div class="wa-card">
         <div class="wa-icon">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.34A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18a7.93 7.93 0 01-4.06-1.11l-.29-.17-3.02.79.81-2.94-.19-.3A7.95 7.95 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.85c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41-.14-.01-.3-.01-.46-.01a.9.9 0 00-.65.3c-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.11-.22-.17-.46-.29z"/></svg>
         </div>
         <h3>Ask us on WhatsApp</h3>
-        <p>Get a real reply from our team about setting up your full tracking.</p>
-        <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20I%27d%20like%20help%20setting%20up%20campaign%20tracking." target="_blank" rel="noopener" class="btn btn--primary wa-btn">
+        <p>Get a real reply from our team about a full AI visibility audit.</p>
+        <a href="https://api.whatsapp.com/send?phone=918876774521&text=Hi%20N%20Page%20Digital%21%20I%27d%20like%20a%20free%20AI%20visibility%20audit%20for%20my%20business." target="_blank" rel="noopener" class="btn btn--primary wa-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.34A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18a7.93 7.93 0 01-4.06-1.11l-.29-.17-3.02.79.81-2.94-.19-.3A7.95 7.95 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.85c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.41-.14-.01-.3-.01-.46-.01a.9.9 0 00-.65.3c-.22.24-.85.83-.85 2.02 0 1.19.87 2.34.99 2.5.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.11-.22-.17-.46-.29z"/></svg>
           Chat on WhatsApp
         </a>
@@ -770,57 +804,38 @@
 
 <script>
 (function(){
-  var urlEl = document.getElementById('utm-url');
-  var sourceEl = document.getElementById('utm-source');
-  var mediumEl = document.getElementById('utm-medium');
-  var campaignEl = document.getElementById('utm-campaign');
-  var termEl = document.getElementById('utm-term');
-  var contentEl = document.getElementById('utm-content');
-  var outputEl = document.getElementById('utm-output');
-  var copyBtn = document.getElementById('utm-copy-btn');
+  var items = document.querySelectorAll('.check-item');
+  var checked = new Set();
+  var scoreNumber = document.getElementById('score-number');
+  var scoreLabel = document.getElementById('score-label');
+  var scoreDesc = document.getElementById('score-desc');
 
-  function buildUrl(){
-    var url = urlEl.value.trim();
-    var source = sourceEl.value.trim();
-    var medium = mediumEl.value.trim();
-    var campaign = campaignEl.value.trim();
-    var term = termEl.value.trim();
-    var content = contentEl.value.trim();
+  var bands = [
+    { min:0, max:2, label:'Just Starting', desc:"Most businesses start here. Pick one or two boxes above to tackle first — the Google Business Profile and consistent info items tend to have the fastest impact." },
+    { min:3, max:5, label:'Building Momentum', desc:"You've got real fundamentals in place. The remaining items are worth tackling in order of what's easiest for your specific business to fix." },
+    { min:6, max:7, label:'Strong Foundation', desc:"You're ahead of most local businesses on this. The last item or two are worth finishing, but you're in genuinely good shape already." },
+    { min:8, max:8, label:'AI-Search Ready', desc:"You've covered every major factor we know of. That's not a guarantee of a citation, but it means you're a strong candidate whenever the question comes up." }
+  ];
 
-    if(!url || !source || !medium || !campaign){
-      outputEl.textContent = 'Fill in the required fields above to generate your link';
-      outputEl.classList.add('empty');
-      return;
-    }
-
-    var params = [];
-    params.push('utm_source=' + encodeURIComponent(source));
-    params.push('utm_medium=' + encodeURIComponent(medium));
-    params.push('utm_campaign=' + encodeURIComponent(campaign));
-    if(term) params.push('utm_term=' + encodeURIComponent(term));
-    if(content) params.push('utm_content=' + encodeURIComponent(content));
-
-    var separator = url.indexOf('?') > -1 ? '&' : '?';
-    var finalUrl = url + separator + params.join('&');
-
-    outputEl.textContent = finalUrl;
-    outputEl.classList.remove('empty');
+  function updateScore(){
+    var score = checked.size;
+    scoreNumber.textContent = score + '/8';
+    var band = bands.find(function(b){ return score >= b.min && score <= b.max; });
+    scoreLabel.textContent = band.label;
+    scoreDesc.textContent = band.desc;
   }
 
-  [urlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl].forEach(function(el){
-    el.addEventListener('input', buildUrl);
-  });
-
-  copyBtn.addEventListener('click', function(){
-    var text = outputEl.textContent;
-    if(outputEl.classList.contains('empty')) return;
-    navigator.clipboard.writeText(text).then(function(){
-      copyBtn.textContent = 'Copied!';
-      copyBtn.classList.add('copied');
-      setTimeout(function(){
-        copyBtn.textContent = 'Copy link';
-        copyBtn.classList.remove('copied');
-      }, 1800);
+  items.forEach(function(item){
+    item.addEventListener('click', function(){
+      var idx = item.getAttribute('data-item');
+      if(checked.has(idx)){
+        checked.delete(idx);
+        item.classList.remove('checked');
+      } else {
+        checked.add(idx);
+        item.classList.add('checked');
+      }
+      updateScore();
     });
   });
 })();
